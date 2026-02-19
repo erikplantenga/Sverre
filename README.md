@@ -10,7 +10,8 @@ Kindvriendelijke fullscreen slideshow voor foto's en video's van de wintersport 
 - `media.json` - lijst met foto-/videobestanden en captions.
 - `generate-media-json.mjs` - maakt automatisch een nieuwe `media.json` op basis van bestanden in de map.
 - `sync-from-icloud.mjs` - kopieert foto's/video's uit de iCloud Drive-map **Sverre_Vakantie** naar `Foto's en Filmpjes` en vernieuwt `media.json`.
-- `server.mjs` - lokale server met **Sync iCloud**-knop (bereikbaar vanaf telefoon/iPad op hetzelfde wifi).
+- `server.mjs` - lokale server (nodig voor upload vanaf telefoon; zie hieronder).
+- `Upload.html` - bestand dat je **in de iCloud-map Sverre_Vakantie** zet; open op je telefoon en tik op "Upload nu".
 - `sverre-sync-hourly.plist` - optionele uurlijkse automatische sync (zie hieronder).
 
 ## Sync vanaf telefoon/iPad (iCloud-map)
@@ -18,15 +19,14 @@ Kindvriendelijke fullscreen slideshow voor foto's en video's van de wintersport 
 1. Maak op je iPhone/iPad in **Bestanden** → **iCloud Drive** een map **Sverre_Vakantie** (of pas de naam in `sync-from-icloud.mjs` aan).
 2. Zet daar tijdens de vakantie foto's en filmpjes in.
 
-**Optie A – Sync-knop (handmatig vanaf telefoon/iPad)**
+**Upload vanaf telefoon (knop in de map)**
 
-- Start op je Mac in de projectmap: `node server.mjs`
-- Open op telefoon of iPad (zelfde wifi): **http://[Mac-IP]:3333** (vind je Mac-IP in Systeeminstellingen → Netwerk).
-- Log in met de familiecode en tik op **Sync iCloud**. Nieuwe foto's uit de iCloud-map worden dan naar de slideshow gekopieerd.
+- Op je **Mac**: kopieer het bestand **Upload.html** uit dit project naar de map **Sverre_Vakantie** in iCloud Drive (bijv. via Finder → iCloud Drive → Sverre_Vakantie). Dan staat hetzelfde bestand ook in die map op je iPhone.
+- Start op je Mac in de projectmap: `node server.mjs` (Mac en telefoon op hetzelfde wifi).
+- Op je **iPhone/iPad**: open **Bestanden** → iCloud Drive → Sverre_Vakantie → tik op **Upload.html** (opent in Safari). Vul eenmalig het Mac-adres in (bijv. `192.168.1.5` of `MacBook.local`; Mac-IP vind je in Systeeminstellingen → Netwerk). Tik daarna op **Upload nu** – nieuwe foto's uit de map gaan naar de slideshow.
 
-**Optie B – Elk uur automatisch**
+**Elk uur automatisch (Mac moet aan staan)**
 
-- Zet de Mac aan en laat hem aan staan (of in ieder geval wanneer je wilt dat er gesynchroniseerd wordt).
 - Installeer de uurlijkse sync (eenmalig):
 
 ```bash
@@ -34,7 +34,7 @@ cp sverre-sync-hourly.plist ~/Library/LaunchAgents/
 launchctl load ~/Library/LaunchAgents/sverre-sync-hourly.plist
 ```
 
-- Als je project in een andere map staat, pas dan in `sverre-sync-hourly.plist` de regel `WorkingDirectory` aan naar jouw projectpad.
+- Als je project in een andere map staat, pas dan in `sverre-sync-hourly.plist` de regel `WorkingDirectory` aan.
 - Uitschakelen: `launchctl unload ~/Library/LaunchAgents/sverre-sync-hourly.plist`
 
 **Alleen op de Mac (zonder server)**
@@ -109,7 +109,6 @@ Tip: als `.MOV` niet goed afspeelt in een browser, zet de video om naar `.mp4`.
 - `Play` / `Pauze`.
 - `Geluid aan/uit` voor video's.
 - `Fullscreen`.
-- **Sync iCloud** – haalt nieuwe foto's uit de iCloud-map (werkt alleen als je de site via `node server.mjs` opent, bijv. op telefoon via http://[Mac-IP]:3333).
 - Toetsenbord:
   - Pijltjes links/rechts: vorige/volgende.
   - Spatie: play/pauze.

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Upload naar slideshow</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 1.5rem;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%);
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      -webkit-text-size-adjust: 100%;
+    }
+    h1 { font-size: 1.5rem; margin: 0 0 1rem; color: #fff; }
+    p { margin: 0 0 1rem; font-size: 0.95rem; color: #94a3b8; text-align: center; max-width: 320px; }
+    label { display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: #cbd5e1; }
+    input {
+      width: 100%;
+      max-width: 280px;
+      padding: 0.65rem 0.85rem;
+      font-size: 1rem;
+      border: 2px solid #475569;
+      border-radius: 10px;
+      background: #1e293b;
+      color: #f1f5f9;
+      margin-bottom: 1rem;
+    }
+    input::placeholder { color: #64748b; }
+    button {
+      padding: 0.85rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #0f172a;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #message { margin-top: 1rem; min-height: 1.5em; font-size: 0.9rem; text-align: center; }
+    #message.ok { color: #86efac; }
+    #message.err { color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <h1>Upload naar slideshow</h1>
+  <p>Vul het adres van je Mac in (eenmalig). Bijv. <strong>192.168.1.5</strong> of <strong>MacBook.local</strong>. Mac en telefoon moeten op hetzelfde wifi zitten. Start op de Mac: <code>node server.mjs</code>.</p>
+  <label for="mac">Mac adres</label>
+  <input type="text" id="mac" placeholder="192.168.1.x of MacBook.local" autocomplete="off" />
+  <button type="button" id="btn">Upload nu</button>
+  <div id="message"></div>
+
+  <script>
+    const STORAGE_KEY = "sverre-mac-address";
+    const input = document.getElementById("mac");
+    const btn = document.getElementById("btn");
+    const msg = document.getElementById("message");
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) input.value = saved;
+    } catch (_) {}
+
+    function setMessage(text, isError) {
+      msg.textContent = text;
+      msg.className = isError ? "err" : "ok";
+    }
+
+    btn.addEventListener("click", async () => {
+      const address = (input.value || "").trim();
+      if (!address) {
+        setMessage("Vul eerst het Mac-adres in.", true);
+        return;
+      }
+      try {
+        localStorage.setItem(STORAGE_KEY, address);
+      } catch (_) {}
+      const url = `http://${address}:3333/sync?code=sverre`;
+      btn.disabled = true;
+      setMessage("Bezig…", false);
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.ok) {
+          setMessage("Gereed! Foto’s staan in de slideshow.", false);
+        } else {
+          setMessage("Fout: " + (data.error || "onbekend"), true);
+        }
+      } catch (e) {
+        setMessage("Kan Mac niet bereiken. Zelfde wifi? Is node server.mjs gestart?", true);
+      }
+      btn.disabled = false;
+    });
+  </script>
+</body>
+</html>

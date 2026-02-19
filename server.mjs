@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Lokale server voor de slideshow + Sync-knop (bereikbaar vanaf telefoon/iPad).
+ * Lokale server voor de slideshow. Upload.html (in iCloud-map) kan /sync aanroepen.
  * Start met: node server.mjs
  * Open op telefoon/iPad: http://[MAC-IP]:3333 (zelfde wifi als de Mac)
  */
@@ -58,20 +58,30 @@ const server = createServer(async (req, res) => {
   const pathname = decodeURIComponent(url.pathname);
 
   if (pathname === "/sync" && req.method === "GET") {
+    const cors = { "Access-Control-Allow-Origin": "*" };
     const code = url.searchParams.get("code");
     if (code !== SYNC_CODE) {
-      res.writeHead(403, { "Content-Type": "application/json" });
+      res.writeHead(403, { "Content-Type": "application/json", ...cors });
       res.end(JSON.stringify({ ok: false, error: "Code ongeldig" }));
       return;
     }
     try {
       const result = await runSync();
-      res.writeHead(200, { "Content-Type": "application/json" });
+      res.writeHead(200, { "Content-Type": "application/json", ...cors });
       res.end(JSON.stringify({ ok: true, log: result.log }));
     } catch (e) {
-      res.writeHead(500, { "Content-Type": "application/json" });
+      res.writeHead(500, { "Content-Type": "application/json", ...cors });
       res.end(JSON.stringify({ ok: false, error: e.message }));
     }
+    return;
+  }
+  if (req.method === "OPTIONS" && req.headers["access-control-request-method"]) {
+    res.writeHead(204, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Max-Age": "86400",
+    });
+    res.end();
     return;
   }
 

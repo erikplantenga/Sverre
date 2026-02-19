@@ -318,7 +318,6 @@ body.pseudo-fullscreen .media-frame {
 .controls button:nth-child(3) { background: linear-gradient(140deg, #b8ff6b, #d4ff9e); }
 .controls button:nth-child(4) { background: linear-gradient(140deg, #ff9ecd, #ffb8e0); }
 .controls button:nth-child(5) { background: linear-gradient(140deg, #c9a0ff, #e0c4ff); }
-.controls button:nth-child(6) { background: linear-gradient(140deg, #7dd3fc, #bae6fd); }
 
 .controls button:focus-visible,
 .gate__card button:focus-visible {
