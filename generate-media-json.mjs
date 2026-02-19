@@ -1,13 +1,14 @@
-import { readdir, writeFile } from "node:fs/promises";
+import { readdir, writeFile, unlink } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const MEDIA_FOLDER = "Foto's en Filmpjes";
 const MEDIA_DIR = path.join(__dirname, MEDIA_FOLDER);
 
-const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic"]);
+const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]);
 const VIDEO_EXT = new Set([".mp4", ".webm", ".mov", ".m4v"]);
 const IGNORE_FILES = new Set(["Achtergrond.jpg", "Achtergrond.jpeg", "Achtergrond.png", "Achtergrond.webp"]);
 
@@ -28,7 +29,31 @@ function detectType(fileName) {
   return null;
 }
 
+/** Converteer HEIC naar JPEG met sips (macOS), zodat de slideshow overal werkt (o.a. school). */
+async function convertHeicToJpeg() {
+  const entries = await readdir(MEDIA_DIR, { withFileTypes: true });
+  const heicFiles = entries
+    .filter((e) => e.isFile() && path.extname(e.name).toLowerCase() === ".heic")
+    .map((e) => e.name);
+  if (heicFiles.length === 0) return;
+  for (const name of heicFiles) {
+    const base = path.basename(name, path.extname(name));
+    const jpegName = base + ".jpg";
+    const heicPath = path.join(MEDIA_DIR, name);
+    const jpegPath = path.join(MEDIA_DIR, jpegName);
+    try {
+      execSync(`sips -s format jpeg "${heicPath}" --out "${jpegPath}"`, { stdio: "pipe" });
+      await unlink(heicPath);
+      console.log(`  ${name} → ${jpegName}`);
+    } catch (err) {
+      console.warn(`  Kon ${name} niet omzetten (sips):`, err.message);
+    }
+  }
+  console.log(`${heicFiles.length} HEIC bestand(en) omgezet naar JPEG.`);
+}
+
 async function main() {
+  await convertHeicToJpeg();
   const entries = await readdir(MEDIA_DIR, { withFileTypes: true });
   const mediaEntries = entries
     .filter((entry) => entry.isFile())

@@ -8,7 +8,7 @@ Kindvriendelijke fullscreen slideshow voor foto's en video's van de wintersport 
 - `styles.css` - vormgeving, inclusief `Foto's en Filmpjes/Achtergrond.jpg` als achtergrond.
 - `script.js` - logica voor slideshow, toetsen, swipe en video.
 - `media.json` - lijst met foto-/videobestanden en captions.
-- `generate-media-json.mjs` - maakt automatisch een nieuwe `media.json` op basis van bestanden in de map.
+- `generate-media-json.mjs` - maakt automatisch een nieuwe `media.json` op basis van bestanden in de map. Zet HEIC-foto’s om naar JPEG (o.a. voor weergave op school).
 - `sync-from-icloud.mjs` - kopieert foto's/video's uit de iCloud Drive-map **Sverre_Vakantie** naar `Foto's en Filmpjes` en vernieuwt `media.json`.
 - `server.mjs` - lokale server (nodig voor upload vanaf telefoon; zie hieronder).
 - `Upload.html` - bestand dat je **in de iCloud-map Sverre_Vakantie** zet; open op je telefoon en tik op "Upload nu".
@@ -70,7 +70,7 @@ Je kunt het op 2 manieren doen.
 node generate-media-json.mjs
 ```
 
-Klaar: `media.json` wordt automatisch opnieuw opgebouwd.
+Klaar: `media.json` wordt automatisch opnieuw opgebouwd. HEIC-bestanden worden eerst omgezet naar JPEG (werkt overal, ook op school).
 
 Let op:
 - Gebruik de map `Foto's en Filmpjes` voor alle media.
