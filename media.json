@@ -11,8 +11,23 @@
   },
   {
     "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_3244.jpeg",
+    "caption": "IMG 3244"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_7503.jpeg",
+    "caption": "IMG 7503"
+  },
+  {
+    "type": "image",
     "src": "./Foto%27s%20en%20Filmpjes/IMG_7533.jpeg",
     "caption": "IMG 7533"
+  },
+  {
+    "type": "video",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_8647.MOV",
+    "caption": "IMG 8647"
   },
   {
     "type": "image",
