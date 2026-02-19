@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#10182a" />
+    <title>Sverre in de sneeuw</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="passwordGate" class="gate gate--visible" aria-live="polite">
+      <div class="gate__card">
+        <h1>Sverre in de sneeuw</h1>
+        <p>Familie slideshow - Hirschegg (Der Berghof)</p>
+        <label for="accessCode">Vul de familiecode in</label>
+        <input id="accessCode" type="password" autocomplete="off" />
+        <button id="unlockButton" type="button">Open slideshow</button>
+        <p id="gateMessage" class="gate__message"></p>
+      </div>
+    </div>
+
+    <main id="app" class="app app--hidden">
+      <div class="background-layer" aria-hidden="true"></div>
+      <div id="snow" class="snow" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div>
+          <h2>Sverre Wintersport 2026</h2>
+          <p>23 t/m 28 februari - Hirschegg - Der Berghof</p>
+        </div>
+        <div id="counter" class="counter">0 / 0</div>
+      </header>
+
+      <section class="stage">
+        <div id="mediaFrame" class="media-frame" aria-live="polite">
+          <p id="caption" class="caption"></p>
+        </div>
+      </section>
+
+      <nav class="controls" aria-label="Slideshow bediening">
+        <button id="prevButton" type="button">Vorige</button>
+        <button id="playPauseButton" type="button">Pauze</button>
+        <button id="nextButton" type="button">Volgende</button>
+        <button id="muteButton" type="button">Geluid uit</button>
+        <button id="fullscreenButton" type="button">Fullscreen</button>
+      </nav>
+    </main>
+
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>

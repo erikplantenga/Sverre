@@ -1,0 +1,42 @@
+[
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/1.jpg",
+    "caption": "1"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_0064.jpeg",
+    "caption": "IMG 0064"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_7533.jpeg",
+    "caption": "IMG 7533"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_9639.jpeg",
+    "caption": "IMG 9639"
+  },
+  {
+    "type": "video",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_9725.MOV",
+    "caption": "IMG 9725"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_9740.jpeg",
+    "caption": "IMG 9740"
+  },
+  {
+    "type": "video",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_9924.MOV",
+    "caption": "IMG 9924"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/Pistekaart_Kleinwalsertal_XL_0.jpg",
+    "caption": "Pistekaart Kleinwalsertal XL 0"
+  }
+]
