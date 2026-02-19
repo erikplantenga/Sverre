@@ -15,6 +15,7 @@ const nextButton = document.getElementById("nextButton");
 const playPauseButton = document.getElementById("playPauseButton");
 const muteButton = document.getElementById("muteButton");
 const fullscreenButton = document.getElementById("fullscreenButton");
+const syncButton = document.getElementById("syncButton");
 
 let slides = [];
 let activeIndex = 0;
@@ -258,6 +259,37 @@ function bindEvents() {
   playPauseButton.addEventListener("click", togglePlay);
   muteButton.addEventListener("click", toggleMute);
   fullscreenButton.addEventListener("click", toggleFullscreen);
+
+  syncButton.addEventListener("click", async () => {
+    if (syncButton.disabled) return;
+    const origin = location.origin;
+    if (origin === "null" || origin.startsWith("file://")) {
+      alert("Sync werkt alleen als je de slideshow via de server op je Mac opent (http://[Mac-IP]:3333).");
+      return;
+    }
+    const prevText = syncButton.textContent;
+    syncButton.textContent = "Bezig…";
+    syncButton.disabled = true;
+    try {
+      const res = await fetch(`${origin}/sync?code=${encodeURIComponent(ACCESS_CODE)}`);
+      const data = await res.json();
+      if (data.ok) {
+        syncButton.textContent = "Gereed";
+        await loadSlides();
+        renderSlide(activeIndex);
+        setTimeout(() => { syncButton.textContent = prevText; }, 2000);
+      } else {
+        syncButton.textContent = "Fout";
+        alert(data.error || "Sync mislukt");
+        syncButton.textContent = prevText;
+      }
+    } catch (e) {
+      syncButton.textContent = "Fout";
+      alert("Sync niet bereikbaar. Start op je Mac: node server.mjs en open deze pagina via http://[Mac-IP]:3333");
+      syncButton.textContent = prevText;
+    }
+    syncButton.disabled = false;
+  });
 
   window.addEventListener("keydown", (event) => {
     if (gate.classList.contains("gate--visible")) return;
