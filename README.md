@@ -140,3 +140,10 @@ Daarna op GitHub:
 Na ongeveer 1 minuut staat je site live op:
 
 `https://<jouw-gebruikersnaam>.github.io/<repo-naam>/`
+
+### Nieuwe foto’s vanaf de telefoon (Working Copy) op de site krijgen
+
+1. **In Working Copy (iPhone):** Zet foto’s/video’s in de map `Foto's en Filmpjes`. Open dan **Changes** (of Status), vink de *nieuwe* bestanden aan (stage), maak een **Commit** met een bericht (bijv. "Nieuwe foto’s"), en druk op **Push**. Zonder deze stap gaan de bestanden niet mee naar GitHub.
+2. **Op de Mac:** Haal de laatste versie op (`git pull`), ga in de projectmap staan en voer uit: `node generate-media-json.mjs`. Daarmee wordt `media.json` bijgewerkt met alle bestanden in `Foto's en Filmpjes`. Commit en push de gewijzigde `media.json` (bijv. `git add media.json && git commit -m "media.json bijgewerkt" && git push`).
+
+Pas na stap 2 verschijnen de nieuwe foto’s in de slideshow op de website; de site leest de lijst uit `media.json`.
