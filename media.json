@@ -11,8 +11,28 @@
   },
   {
     "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_0238.HEIC",
+    "caption": "IMG 0238"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_0265.HEIC",
+    "caption": "IMG 0265"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_0274.HEIC",
+    "caption": "IMG 0274"
+  },
+  {
+    "type": "image",
     "src": "./Foto%27s%20en%20Filmpjes/IMG_3244.jpeg",
     "caption": "IMG 3244"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_5885.HEIC",
+    "caption": "IMG 5885"
   },
   {
     "type": "image",
@@ -28,6 +48,16 @@
     "type": "video",
     "src": "./Foto%27s%20en%20Filmpjes/IMG_7549.MOV",
     "caption": "IMG 7549"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_7619.heic",
+    "caption": "IMG 7619"
+  },
+  {
+    "type": "image",
+    "src": "./Foto%27s%20en%20Filmpjes/IMG_7900.heic",
+    "caption": "IMG 7900"
   },
   {
     "type": "video",

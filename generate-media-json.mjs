@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 const MEDIA_FOLDER = "Foto's en Filmpjes";
 const MEDIA_DIR = path.join(__dirname, MEDIA_FOLDER);
 
-const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]);
+const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic"]);
 const VIDEO_EXT = new Set([".mp4", ".webm", ".mov", ".m4v"]);
 const IGNORE_FILES = new Set(["Achtergrond.jpg", "Achtergrond.jpeg", "Achtergrond.png", "Achtergrond.webp"]);
 

@@ -73,7 +73,7 @@ function normalizeType(type, src) {
   if (type === "image" || type === "video") return type;
   const ext = (src || "").split(".").pop()?.toLowerCase();
   if (!ext) return null;
-  if (["jpg", "jpeg", "png", "webp", "gif"].includes(ext)) return "image";
+  if (["jpg", "jpeg", "png", "webp", "gif", "heic"].includes(ext)) return "image";
   if (["mp4", "webm", "mov", "m4v"].includes(ext)) return "video";
   return null;
 }
